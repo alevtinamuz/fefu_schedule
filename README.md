@@ -1,4 +1,4 @@
-# fefu_schedule
+# gg
 
 ## Project setup
 ```

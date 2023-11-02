@@ -1,5 +1,10 @@
 <template>
-  <div class="schedule">
+  <div>
+    <li v-for="content in contents" :key="content.id">
+      <h2>{{ content.event_name }}</h2>
+    </li>
+  </div>
+  <!-- <div class="schedule">
     <section>
       <div>
         <div>event_id</div>
@@ -15,23 +20,23 @@
         <div>subgroup</div>
       </div>
     </section>
-  </div>
+  </div> -->
 </template>
 
 
 <script>
 import axios from 'axios';
-new schedule_data({
-  el: '#app',
+export default({
+  name: "schedule",
   data() {
     return {
-      info: null
-    };
+      contents: null,
+    }
   },
   mounted() {
     axios
-      .get('https://api.coindesk.com/v1/bpi/currentprice.json')
-      .then(response => (this.info = response.data.bpi));
+      .get('http://localhost:8080/api/view?group_name=Б9121-01.03.02сп&begin=2023-11-06&end=2023-11-12&subgroup=1')
+      .then((response) => (this.contents = response.data));
   }
 });
 // import { computed, ref } from "vue";

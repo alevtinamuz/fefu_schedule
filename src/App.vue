@@ -19,10 +19,10 @@
       <li>20:10-21:40</li>
     </div>
 <div class="schedule">
-      <li id="lesson" v-for="content in contents" :key="content.id">
+    <li id="lesson" v-for="content in contents" :key="content.id">
         {{ content.event_name }}
-      </li>
-  </div>
+    </li>
+</div>
   <!-- <div class="schedule">
     <section>
       <div>

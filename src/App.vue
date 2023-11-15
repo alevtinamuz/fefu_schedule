@@ -18,37 +18,18 @@
       <li>18:30-20:00</li>
       <li>20:10-21:40</li>
     </div>
-<div class="schedule">
-    <li id="lesson" v-for="event in events" :key="event.id">
-        {{ event.event_name }}
-    </li>
-</div>
-  <!-- <div class="schedule">
-    <section>
-      <div>
-        <div>event_id</div>
-        <div>event_name</div>
-        <div>order</div>
-        <div>begin</div>
-        <div>end</div>
-        <div>facility</div>
-        <div>spec</div>
-        <div>capacity</div>
-        <div>teacher</div>
-        <div>group</div>
-        <div>subgroup</div>
-      </div>
-    </section>
-  </div> -->
-</div>
+    <div class="schedule">
+        <li id="lesson" v-for="event in events" :key="event.id">
+            {{ event.event_name }}
+        </li>
+    </div>
+  </div>
   
 </template>
 
 
 <script>
-// import { tsConstructSignatureDeclaration } from '@babel/types';
 import axios from 'axios';
-// import { VueElement } from 'vue';
 export default({
 // eslint-disable-next-line vue/multi-word-component-names
   name: "schedule",
@@ -58,71 +39,39 @@ export default({
       events: []
     }
   },
-  mounted() {
+  created() {
     axios
       .get('http://localhost:8080/api/event/view?group_name=%D0%919121-01.03.02%D1%81%D0%BF&begin=2023-11-20&end=2023-11-27&subgroup=1')
       .then((response) => (this.contents = response.data))
       .catch(error => {console.log(error)});
   },
 
-  methods: {
-    createEvents () {
-      // for (let time = 0; time < 24; time += 0.5) {
-      //   let hours = parseInt(time)
-      //   let minutes = (time - hours) * 60
-      //   let minutesEnd = ((minutes + 30) < 10 ? '0' : '') + (minutes + 30)
-      //   hours = (hours < 10 ? '0' : '') + hours
-      //   minutes = (minutes < 10 ? '0' : '') + minutes
-        
-      //   this.events.push({
-      //     start: "2018-11-19 ${hours}:${minutes}",
-      //     end: "2018-11-19 ${hours}:${minutesEnd}",
-      //     title: 'New event'
-      //   })
-      // }
-      for (let i = 0; i < 48; i++) {
-        this.events.push({
-          event_name: "",
-          start: "",
-          end: "",
-          title: ''
-        })
-        console.log(this.contents)
-      }
+  mounted() {
 
-      for (let content in this.contents) {
-        let year = Number(content.begin.slice(0, 4))
-        let month = Number(content.begin.slice(5, 7)) - 1
-        let day = Number(content.begin.slice(8, 10))
-        let date = new Date(year, month, day)
-        let weekDay = date.getDay()
-        this.events[content.order - 1 + weekDay * 6] = content
-        console.log(1)
-      }
+    for (let i = 0; i < 48; i++) {
+      this.events.push({
+        event_name: "",
+        start: "",
+        end: "",
+        title: ''
+      })
+      console.log(this.contents)
     }
-  },
-  
-  created () {
-    this.createEvents()
+
+    for (let content in this.contents) {
+      console.groupCollapsed(content)
+      let year = Number(content.begin.slice(0, 4))
+      let month = Number(content.begin.slice(5, 7)) - 1
+      let day = Number(content.begin.slice(8, 10))
+      let date = new Date(year, month, day)
+      let weekDay = date.getDay()
+      this.events[content.order - 1 + weekDay * 6] = content
+      console.log(1)
+    }
   }
+
 });
 
-
-
-// import { computed, ref } from "vue";
-// import { useFetch } from "@vueuse/core";
-
-// const groupname = ref("Б9121-01.03.02сп")
-// const begin = ref("2023-11-06")
-// const end = ref("2023-11-12")
-// const subgroup = ref(1)
-// const url = computed(() => {
-//   return 'https://fefuschedule.rn7cvj-dev.ru/api/view?group_name=${groupname.value}&begin=${begin.value}&end=${end.value}&subgroup=${subgroup.value}'
-// })
-
-// const { isFetching, error, data } = useFetch(url, {
-//   refetch: true
-// }).json()
 </script>
 
 <style>

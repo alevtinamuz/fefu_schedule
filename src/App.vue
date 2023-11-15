@@ -18,38 +18,38 @@
       <li>18:30-20:00</li>
       <li>20:10-21:40</li>
     </div>
-    <div class="schedule">
-      <li id="lesson" v-for="content in contents" :key="content.id">
+<div class="schedule">
+    <li id="lesson" v-for="content in contents" :key="content.id">
         {{ content.event_name }}
-      </li>
-    </div>
-    <!-- <div class="schedule">
-      <section>
-        <div>
-          <div>event_id</div>
-          <div>event_name</div>
-          <div>order</div>
-          <div>begin</div>
-          <div>end</div>
-          <div>facility</div>
-          <div>spec</div>
-          <div>capacity</div>
-          <div>teacher</div>
-          <div>group</div>
-          <div>subgroup</div>
-        </div>
-      </section>
-    </div> -->
-  </div>
+    </li>
+</div>
+  <!-- <div class="schedule">
+    <section>
+      <div>
+        <div>event_id</div>
+        <div>event_name</div>
+        <div>order</div>
+        <div>begin</div>
+        <div>end</div>
+        <div>facility</div>
+        <div>spec</div>
+        <div>capacity</div>
+        <div>teacher</div>
+        <div>group</div>
+        <div>subgroup</div>
+      </div>
+    </section>
+  </div> -->
+</div>
   
 </template>
 
 
 <script>
-  import axios from 'axios';
-  // import { VueElement } from 'vue';
-  export default({
-  // eslint-disable-next-line vue/multi-word-component-names
+import axios from 'axios';
+// import { VueElement } from 'vue';
+export default({
+// eslint-disable-next-line vue/multi-word-component-names
   name: "schedule",
   data() {
     return {
@@ -62,24 +62,24 @@
       .then((response) => (this.contents = response.data))
       .catch(error => {console.log(error)});
   }
-  });
+});
 
 
 
-  // import { computed, ref } from "vue";
-  // import { useFetch } from "@vueuse/core";
+// import { computed, ref } from "vue";
+// import { useFetch } from "@vueuse/core";
 
-  // const groupname = ref("Б9121-01.03.02сп")
-  // const begin = ref("2023-11-06")
-  // const end = ref("2023-11-12")
-  // const subgroup = ref(1)
-  // const url = computed(() => {
-  //   return 'https://fefuschedule.rn7cvj-dev.ru/api/view?group_name=${groupname.value}&begin=${begin.value}&end=${end.value}&subgroup=${subgroup.value}'
-  // })
+// const groupname = ref("Б9121-01.03.02сп")
+// const begin = ref("2023-11-06")
+// const end = ref("2023-11-12")
+// const subgroup = ref(1)
+// const url = computed(() => {
+//   return 'https://fefuschedule.rn7cvj-dev.ru/api/view?group_name=${groupname.value}&begin=${begin.value}&end=${end.value}&subgroup=${subgroup.value}'
+// })
 
-  // const { isFetching, error, data } = useFetch(url, {
-  //   refetch: true
-  // }).json()
+// const { isFetching, error, data } = useFetch(url, {
+//   refetch: true
+// }).json()
 </script>
 
 <style>

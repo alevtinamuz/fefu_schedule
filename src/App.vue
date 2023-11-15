@@ -41,33 +41,37 @@ export default({
   },
   created() {
     axios
-      .get('http://localhost:8080/api/event/view?group_name=%D0%919121-01.03.02%D1%81%D0%BF&begin=2023-11-20&end=2023-11-27&subgroup=1')
+    .get('http://localhost:8080/api/event/view?group_name=%D0%919121-01.03.02%D1%81%D0%BF&begin=2023-11-20&end=2023-11-27&subgroup=1')
       .then((response) => (this.contents = response.data))
       .catch(error => {console.log(error)});
+      
   },
 
-  mounted() {
-
-    for (let i = 0; i < 48; i++) {
+  beforeMount() {
+    setTimeout( () => {
+      for (let i = 0; i < 48; i++) {
       this.events.push({
         event_name: "",
         start: "",
         end: "",
         title: ''
       })
-      console.log(this.contents)
     }
 
-    for (let content in this.contents) {
-      console.groupCollapsed(content)
-      let year = Number(content.begin.slice(0, 4))
-      let month = Number(content.begin.slice(5, 7)) - 1
-      let day = Number(content.begin.slice(8, 10))
+    console.log(this.contents)
+
+
+    for (let i = 0; i < this.contents.length; i++) {
+      console.log(this.contents[i])
+      let year = Number(this.contents[i].begin.slice(0, 4))
+      let month = Number(this.contents[i].begin.slice(5, 7)) - 1
+      let day = Number(this.contents[i].begin.slice(8, 10))
       let date = new Date(year, month, day)
       let weekDay = date.getDay()
-      this.events[content.order - 1 + weekDay * 6] = content
-      console.log(1)
+      this.events[(this.contents[i].order - 1) * 6 + (weekDay - 1)] = this.contents[i]
+      console.log(weekDay)
     }
+    }, 5000)
   }
 
 });

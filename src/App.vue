@@ -58,8 +58,9 @@
   },
   mounted() {
     axios
-      .get('http://localhost:8080/api/view?group_name=Б9121-01.03.02сп&begin=2023-11-06&end=2023-11-12&subgroup=1')
-      .then((response) => (this.contents = response.data));
+      .get('http://localhost:8080/api/view?group_name=Б9121-01.03.02сп&begin=2023-11-06&end=2023-11-16&subgroup=1')
+      .then((response) => (this.contents = response.data))
+      .catch(error => {console.log(error)});
   }
   });
 

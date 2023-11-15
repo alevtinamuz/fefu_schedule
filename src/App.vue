@@ -19,8 +19,8 @@
       <li>20:10-21:40</li>
     </div>
 <div class="schedule">
-    <li id="lesson" v-for="content in contents" :key="content.id">
-        {{ content.event_name }}
+    <li id="lesson" v-for="event in events" :key="event.id">
+        {{ event.event_name }}
     </li>
 </div>
   <!-- <div class="schedule">
@@ -46,6 +46,7 @@
 
 
 <script>
+// import { tsConstructSignatureDeclaration } from '@babel/types';
 import axios from 'axios';
 // import { VueElement } from 'vue';
 export default({
@@ -54,13 +55,55 @@ export default({
   data() {
     return {
       contents: null,
+      events: []
     }
   },
   mounted() {
     axios
-      .get('http://localhost:8080/api/view?group_name=Б9121-01.03.02сп&begin=2023-11-06&end=2023-11-16&subgroup=1')
+      .get('http://localhost:8080/api/event/view?group_name=%D0%919121-01.03.02%D1%81%D0%BF&begin=2023-11-20&end=2023-11-27&subgroup=1')
       .then((response) => (this.contents = response.data))
       .catch(error => {console.log(error)});
+  },
+
+  methods: {
+    createEvents () {
+      // for (let time = 0; time < 24; time += 0.5) {
+      //   let hours = parseInt(time)
+      //   let minutes = (time - hours) * 60
+      //   let minutesEnd = ((minutes + 30) < 10 ? '0' : '') + (minutes + 30)
+      //   hours = (hours < 10 ? '0' : '') + hours
+      //   minutes = (minutes < 10 ? '0' : '') + minutes
+        
+      //   this.events.push({
+      //     start: "2018-11-19 ${hours}:${minutes}",
+      //     end: "2018-11-19 ${hours}:${minutesEnd}",
+      //     title: 'New event'
+      //   })
+      // }
+      for (let i = 0; i < 48; i++) {
+        this.events.push({
+          event_name: "",
+          start: "",
+          end: "",
+          title: ''
+        })
+        console.log(this.contents)
+      }
+
+      for (let content in this.contents) {
+        let year = Number(content.begin.slice(0, 4))
+        let month = Number(content.begin.slice(5, 7)) - 1
+        let day = Number(content.begin.slice(8, 10))
+        let date = new Date(year, month, day)
+        let weekDay = date.getDay()
+        this.events[content.order - 1 + weekDay * 6] = content
+        console.log(1)
+      }
+    }
+  },
+  
+  created () {
+    this.createEvents()
   }
 });
 
